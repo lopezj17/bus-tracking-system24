@@ -3,7 +3,7 @@ from geopy.geocoders import *
 import geocoder
 
 # List of desired stops
-bus_stops = ['Morse Transfer, Denton, TX 76208', 'EB Hickory @ Wood, Denton, TX 76205']
+bus_stops = ['Forney, Texas, US', 'EB Hickory @ Wood, Denton, TX 76205']
 coordindate_tracker = []
 
 def get_long_lat(stop_location):
@@ -33,5 +33,4 @@ def get_user_location():
     print(current_location)
     return current_location
 
-get_user_location()
-#get_long_lat()
+get_coordinates(bus_stops)
