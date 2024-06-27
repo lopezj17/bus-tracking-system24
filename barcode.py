@@ -17,4 +17,3 @@ def generate_barcode(user_id):
 
     # return content as special object for the ImageField 
     # return buffer.getvalue(), name=f'barcode_{user_id}.png')
-

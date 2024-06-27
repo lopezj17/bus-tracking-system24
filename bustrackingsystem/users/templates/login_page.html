@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+<body>
+  <h1>Welcome Back!</h1>
+    <div class="imgcontainer">
+      {% load static %}
+      <img src="{% static 'greenbus.png' %}" alt="Bus Logo" class="bus_logo">
+    </div>
+    <form class="user_form" action="" method="POST">
+      {% csrf_token %}
+      {{ form }}
+      <button type="submit">Login</button>
+    </form>
+    <div class="container" style="background-color:#f1f1f1">
+      <a href="{% url 'home' %}"><button type="button" class="cancelbtn">Cancel</button></a>
+      <span class="psw">Forgot <a href="#">password?</a></span><!--CHANGE THIS-->
+    </div>
+  
+
+</body>
+</html>
+

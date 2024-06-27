@@ -103,6 +103,11 @@ nav {
   background-color: #04AA6D;
 }
 
+form {
+  display: block;
+
+}
+
 .routeschedule {
   display: block;
   padding: 1% 30%;

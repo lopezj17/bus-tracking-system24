@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+<body>
+  <div class="imgcontainer">
+    {% load static %}
+    <img src="{% static 'greenbus.png' %}" alt="Bus Logo" class="bus_logo">
+  </div>
+  <h1>Signup</h1>
+    <form class="user_form" action="" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Signup</button>
+        <span class="psw"></span><a href="{% url 'users:login' %}">Already have account?</a></span>
+    </form>
+    
+
+</body>
+</html>
+

@@ -1,15 +1,15 @@
 from django.contrib import admin
 from django.urls import include, path
 from . import views
-
+from django.conf.urls.static import static 
+from django.conf import settings 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home_page, name='home'),# Landing page
-    path('login/', views.login_page, name='login'),# Login page
-    path('signup/', views.sign_up_page, name='signup'),
     path('main/', views.main_page, name='main'), #Main map page
+    path('users/', include('users.urls')) # Signup and login pages
     # Sign up page
 
     #

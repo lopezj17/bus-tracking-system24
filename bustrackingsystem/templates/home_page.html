@@ -12,9 +12,9 @@
       {% load static %}
       <img src="{% static 'greenbus.png' %}" alt="Bus Logo" class="bus_logo">
   </div>
-  <a href="{% url 'login' %}"><button type="submit">Login</button></a>
+  <a href="{% url 'users:login' %}"><button type="submit">Login</button></a>
   <div class="signup">
-    <a href="{% url 'signup' %}"><button type="button">Create an account</button></a>
+    <a href="{% url 'users:signup' %}"><button type="button">Create an account</button></a>
   </div>
 
 </body>
