@@ -2,19 +2,17 @@
 from django.shortcuts import render
 
 def home_page(request):
-    #return HttpResponse('Welcome to the Bus Tracking System!')+
     return render(request, 'home_page.html')
 
 def main_page(request):
-    #return HttpResponse('Main map and bus page.')
     return render(request, 'main_page.html')
 
-'''
-def login_page(request):
-    #return HttpResponse('Welcome to the Bus Tracking System!')+
-    return render(request, 'login_page.html')
+def settings_page(request):
+    return render(request, 'settings_page.html')
 
-def sign_up_page(request):
-    #return HttpResponse('User registration page.')
-    return render(request, 'signup_page.html')    
-'''
+def account_page(request):
+    return render(request, 'account_page.html')
+
+def support_page(request):
+    return render(request, 'support_page.html')
+
