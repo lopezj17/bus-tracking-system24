@@ -7,6 +7,7 @@ import os
 import time
 import datetime
 import timemath
+import mapchooser
 
 
 path = os.getcwd()
@@ -17,13 +18,11 @@ print("Current Directory", path)
 test = 0
 writebus1 = False
 writebus2 = True
-timereal = "08:18"
-timeshed = "08:19"
 
- #Get this from excel and api
-buss = timemath.timepcent(timemath.timediff(timereal, timeshed))
 
-name = "Colorado_Express"
+
+
+name = mapchooser.picaname()
 unt_stops = pd.read_csv(fr"G:\unt\fall2023\Data\Data project\test analysis\all stops\tables\{name}.csv")
 shapefile_path = fr"G:\unt\summer 2024\New folder\all\{name}.shp"
 geo_df = gpd.read_file(shapefile_path)
@@ -48,10 +47,13 @@ for feature, name, category in zip(geo_df.geometry, geo_df["name"] if "name" in 
 
 
         #Bus lock
+        #Get this from excel and api
         
         #Outbound
         while test == 0:
-            lock = .82
+            timereal = "08:18"
+            timesched = "08:19"
+            lock = timemath.timepcent(timemath.timediff(timereal, timesched))
             bus = linestring.interpolate(lock, normalized=True)
             if writebus1 == True:
                 bus_lats.append(bus.y)
@@ -59,7 +61,7 @@ for feature, name, category in zip(geo_df.geometry, geo_df["name"] if "name" in 
             test = 1
         #Inbound
         while  test == 1:
-            lock = buss
+            lock = timemath.timepcent(timemath.timediff(timereal, timesched))
             print(lock)
             mathlock = (lock - 1) * -1
             bus = linestring.interpolate(mathlock, normalized=True)
