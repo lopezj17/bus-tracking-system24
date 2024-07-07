@@ -9,24 +9,27 @@ import datetime
 import timemath
 import mapchooser
 
-
-path = os.getcwd()
-print("Current Directory", path)
-
-
 #Stuff I need to connect later
 test = 0
-writebus1 = False
-writebus2 = True
+tset = 0
+
+csvFile = pd.read_csv("Book1.csv")
+row = timemath.roww()
+outorin = csvFile.at[row,"in/out"]
 
 
-
-
+if outorin == "in":
+    writebus1 = True
+    writebus2 = False
+if outorin == "out":
+    writebus1=False
+    writebus2=True
+#writebus1 = True   #inbound
+#writebus2 = False    #outbound
 name = mapchooser.picaname()
 unt_stops = pd.read_csv(fr"G:\unt\fall2023\Data\Data project\test analysis\all stops\tables\{name}.csv")
 shapefile_path = fr"G:\unt\summer 2024\New folder\all\{name}.shp"
 geo_df = gpd.read_file(shapefile_path)
-
 
 lats, lons, names, categories = [], [], [], []
 bus_lats, bus_lons = [], []
@@ -43,37 +46,33 @@ for feature, name, category in zip(geo_df.geometry, geo_df["name"] if "name" in 
         lons.extend(x.tolist() + [None])
         names.extend([name] * (len(y) + 1))
         categories.extend([category] * (len(y) + 1))
-        
-
-
         #Bus lock
-        #Get this from excel and api
-        
-        #Outbound
-        while test == 0:
-            timereal = "08:18"
-            timesched = "08:19"
-            lock = timemath.timepcent(timemath.timediff(timereal, timesched))
-            bus = linestring.interpolate(lock, normalized=True)
-            if writebus1 == True:
+        #Outbound bus
+        test += 1
+        while test == 1:
+            if writebus2:
+                inbnd = False
+                otbnd = True
+                lock = timemath.timepcent(timemath.timediff(inbnd, otbnd))
+                #mathlock = (lock - 1) * -1
+                bus = linestring.interpolate(lock, normalized=True)
                 bus_lats.append(bus.y)
                 bus_lons.append(bus.x)
-            test = 1
-        #Inbound
-        while  test == 1:
-            lock = timemath.timepcent(timemath.timediff(timereal, timesched))
-            print(lock)
-            mathlock = (lock - 1) * -1
-            bus = linestring.interpolate(mathlock, normalized=True)
-            if writebus2 == True:
-                bus_lats.append(bus.y)
-                bus_lons.append(bus.x)
-            test = 3
-
-
-
-
-
+                writebus1 = False
+            test +=1
+        tset += 1
+        while tset == 2:
+        #Inbound bus
+            if writebus1:
+                inbnd = True
+                otbnd = False
+                lock = timemath.timepcent(timemath.timediff(inbnd, otbnd))
+                mathlock = (lock - 1) * -1
+                bus1 = linestring.interpolate(mathlock, normalized=True)
+                bus_lats.append(bus1.y)
+                bus_lons.append(bus1.x)
+                writebus2 = False
+            tset +=1
 fig = go.Figure()
 
 #Bus routes

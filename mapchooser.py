@@ -1,3 +1,4 @@
+import csv
 import plotly.graph_objects as go
 import pandas as pd
 import geopandas as gpd
@@ -17,8 +18,10 @@ def picaname():
         
 
         return now, here, 
-
-    return "Colorado_Express"
+    csvFile = pd.read_csv("Book1.csv")
+    row = timemath.roww()
+    out = csvFile.at[row, "name"]
+    return out
 
 def whendoileave():
     
