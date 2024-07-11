@@ -5,7 +5,7 @@ import pandas as pd
 
 
 def roww():
-    row=2               #change the test csv file row
+    row=0               #change the test csv file row
     return row
 
 
@@ -42,8 +42,16 @@ def timepcent(diff):
     inbnd = True
     otbnd = True
     notneeded, time3, time1, time2 = times(inbnd, otbnd)
-    #FAKE CURRENT TIME FIX ADD REALTIME
-    currenttime= "6:18"
+    ##
+    now = datetime.datetime.now()
+    if now.hour > 12:
+        hour = str(now.hour - 12)           #current time
+    else:
+        hour = str(now.hour)
+    minute = str(now.minute)
+    col = ":"
+    currenttime = hour + col + minute
+    currenttime = "8:15"                    #manual time change 
     curTime = datetime.datetime.strptime(currenttime, '%H:%M')
     ###
     start = datetime.datetime.strptime(time1, '%H:%M')

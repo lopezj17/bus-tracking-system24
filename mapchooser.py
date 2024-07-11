@@ -9,23 +9,46 @@ import time
 import datetime
 import timemath
 import mapchooser
-
+import string
 
 def picaname():
-    here = whereami()
-    #now, depart, scheduled = whattimeisit()
-    if here == "AOC101":
-        
-
-        return now, here, 
-    csvFile = pd.read_csv("Book1.csv")
     row = timemath.roww()
-    out = csvFile.at[row, "name"]
-    return out
+    csvFile = pd.read_csv("Book1.csv")
+    here = csvFile.at[row, "name"]
+    return here
 
-def whendoileave():
+def schedinfo():
+    row = timemath.roww()
+    shed = pd.read_csv("Schedule.csv")
+    csvFile = pd.read_csv("Book1.csv")
+    here = picaname()
+    zero = 0
+    api_stoptime = csvFile.at[row, "stop"]
+
+    times = len(shed)
+    x = 0
+    name = shed.at[zero,"route_name"]
     
-    return
+    while x < times:
+        name = shed.at[zero, "route_name"]
+        start = shed.at[zero, "start_time"]
+        y = 1
+        while y < 9:
+            stopnumber = "stop_"
+            stopnumber = stopnumber + str(y)
+            stop = shed.at[zero,stopnumber]
+            if name == here and stop == api_stoptime:
+                stopreturn = stop
+                inorout = shed.at[zero, "in/outbound"]
+                start = shed.at[zero,"start_time"]
+                stop = shed.at[zero,"stop_time"]
+            y += 1
+        zero += 1
+        x += 1
+    return start, stop, inorout, stopreturn
+
+
+    
 def whereami():
     
 
