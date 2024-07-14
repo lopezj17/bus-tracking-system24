@@ -10,8 +10,7 @@ import timemath
 import mapchooser
 
 #Stuff I need to connect later
-test = 0
-tset = 0
+
 
 csvFile = pd.read_csv("Book1.csv")
 row = timemath.roww()
@@ -27,13 +26,20 @@ if outorin == "out":
 #writebus1 = True   #inbound
 #writebus2 = False    #outbound
 name = mapchooser.picaname()
+
+
+
 unt_stops = pd.read_csv(fr"G:\unt\fall2023\Data\Data project\test analysis\all stops\tables\{name}.csv")
 shapefile_path = fr"G:\unt\summer 2024\New folder\all\{name}.shp"
 geo_df = gpd.read_file(shapefile_path)
 
+
+
 lats, lons, names, categories = [], [], [], []
 bus_lats, bus_lons = [], []
 
+test = 0
+tset = 0
 for feature, name, category in zip(geo_df.geometry, geo_df["name"] if "name" in geo_df.columns else [""]*len(geo_df), geo_df["route_type"]):
     if isinstance(feature, shapely.geometry.linestring.LineString):
         linestrings = [feature]
