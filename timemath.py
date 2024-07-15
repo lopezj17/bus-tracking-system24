@@ -55,7 +55,7 @@ def timepcent(diff):
     minute = str(now.minute)
     col = ":"
     currenttime = hour + col + minute
-    currenttime = "8:15"                    #manual time change 
+    #currenttime = "8:15"                    #manual time change 
     curTime = datetime.datetime.strptime(currenttime, '%H:%M')
     ###
     start = datetime.datetime.strptime(time1, '%H:%M')
