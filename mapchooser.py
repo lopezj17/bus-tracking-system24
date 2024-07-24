@@ -1,86 +1,37 @@
-import csv
-import plotly.graph_objects as go
+from re import L
+from geopy.geocoders import *
+import geocoder
 import pandas as pd
-import geopandas as gpd
-import shapely.geometry
-import numpy as np
-import os
-import time
-import datetime
-import timemath
-import mapchooser
-import string
 
-def picaname():
-    row = timemath.roww()
-    csvFile = pd.read_csv("Book1.csv")
-    here = csvFile.at[row, "name"]
-    return here
-
-def schedinfo():
-    row = timemath.roww()
-    shed = pd.read_csv("Schedule.csv")
-    csvFile = pd.read_csv("Book1.csv")
-    here = picaname()
-    zero = 0
-    api_stoptime = csvFile.at[row, "stop"]
-
-    times = len(shed)
-    x = 0
-    name = shed.at[zero,"route_name"]
-    
-    while x < times:
-        name = shed.at[zero, "route_name"]
-        start = shed.at[zero, "start_time"]
-        y = 1
-        while y < 9:
-            stopnumber = "stop_"
-            stopnumber = stopnumber + str(y)
-            stop = shed.at[zero,stopnumber]
-            if name == here and stop == api_stoptime:
-                stopreturn = stop
-                inorout = shed.at[zero, "in/outbound"]
-                start = shed.at[zero,"start_time"]
-                stop = shed.at[zero,"stop_time"]
-            y += 1
-        zero += 1
-        x += 1
-    return start, stop, inorout, stopreturn
-
-def schedinfo():
-    row = timemath.roww()
-    shed = pd.read_csv("Schedule.csv")
-    csvFile = pd.read_csv("Book1.csv")
-    here = picaname()
-    zero = 0
-    api_stoptime = csvFile.at[row, "stop"]
-    times = len(shed)
-    x = 0
-    name = shed.at[zero,"route_name"]
-    while x < times:
-        name = shed.at[zero, "route_name"]
-        start = shed.at[zero, "start_time"]
-        y = 1
-        while y < 9:
-            stopnumber = "stop_"
-            stopnumber = stopnumber + str(y)
-            stop = shed.at[zero,stopnumber]
-            #
-            nextstop = stopnumber + str(y + 1)                                              #NEXT stop 
-            #
-            if stop == shed.at[zero,"end_time"] and shed.at[zero, "in/outbound"] == "in":   #overflow cases
-                nxtstop = "stop_1"
-                one = zero + 1
-                nextstop = shed.at[one, nxtstop]
-            if name == here and stop == api_stoptime:
-                stopreturn = stop
-                inorout = shed.at[zero, "in/outbound"]
-                start = shed.at[zero,"start_time"]
-                end = shed.at[zero,"end_time"]
-            y += 1
-        zero += 1
-        x += 1
-    return start, end, inorout, stopreturn
-        
-
-    
+def where_am_i():
+    g = geocoder.ip('me')
+    cords = g.latlng
+    lat = cords[0]
+    lon = cords[1]
+    #lon = -97.144955
+    #lat = 33.210455
+    return lat, lon
+def who_am_i(name_given):
+    me = name_given.replace(" ", "_")
+    global route_name 
+    route_name = me
+    return me
+def my_name(name):
+    global its
+    its = name
+def whats_my_name():
+    return its
+def what_direction():
+    route_name
+    csvFile = pd.read_csv("output.csv")
+    directions = csvFile["direction_id"]
+    return directions[what_row()]
+def pick_a_name():
+    csvFile = pd.read_csv("output.csv")
+    names = csvFile["route_long_name"]
+    return names
+def roww(row):
+    global roww
+    roww = row
+def what_row():
+    return roww
