@@ -9,6 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home_page, name='home'),# Landing page
     path('main/', views.main_page, name='main'), #Main map page
+    path('discoverypark/', views.discovery_park_page, name='discoverypark'), #Discovery Park map page
     path('users/', include('users.urls')), # Signup and login pages
     path('settings/', views.settings_page, name='settings'),# Settings page
     path('account/', views.account_page, name='account'),# About page

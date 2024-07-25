@@ -16,3 +16,5 @@ def account_page(request):
 def support_page(request):
     return render(request, 'support_page.html')
 
+def discovery_park_page(request):
+    return render(request, 'Discovery_Park.html')
